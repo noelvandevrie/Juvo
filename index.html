@@ -8,7 +8,19 @@
 
     <p>TEST</p>
 
+      <div id="login_div" class="main-div">
+    <h3>Firebase Web login Example</h3>
+    <input type="email" placeholder="Email..." id="email_field" />
+    <input type="password" placeholder="Password..." id="password_field" />
 
+    <button onclick="login()">Login to Account</button>
+  </div>
+
+  <div id="user_div" class="loggedin-div">
+    <h3>Welcome User</h3>
+    <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
+    <button onclick="logout()">Logout</button>
+  </div>
 
 
 
@@ -18,6 +30,10 @@
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
 
 <script>
   // Your web app's Firebase configuration
@@ -37,6 +53,6 @@
   firebase.analytics();
 </script>
 
-
+    <script src="index.js"></script>
   </body>
 </html>
