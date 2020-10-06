@@ -2,10 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-
     <title>Juvo</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="app.js"></script>
+    <link rel="stylesheet" type="text/css" href="startup.css" />
+    <link rel="stylesheet" type="text/css" href="app.css" />
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
@@ -13,13 +12,63 @@
   </head>
 
   <body>
-    <p>test</p>
-    <div class="container">
-      <input id="txtEmail" type="email" placeholder="Email" />
-      <input id="txtPassword" type="password" placeholder="Password" />
-      <button id="btnLogin" class="btn btn-action">Log in</button>
-      <button id="btnSignUp" class="btn btn-secondary">Sign Up</button>
-      <button id="btnLogout" class="btn btn-action hide">Log out</button>
+    <div class="container" id="container">
+      <div class="form-container log-in-container">
+        <div class="login-form" id="login-form">
+          <h1>Login to Juvo</h1>
+          <span>Email:</span>
+          <input type="email" placeholder="Email" id="email_field"/>
+          <span>Password:</span>
+          <input type="password" placeholder="Password" id="password_field"/>
+
+          <button onclick="login()">Log In</button>
+          <span class="pseudolink" onclick="switchSignup()">Don't have an account?</span>
+        </div>
+        <div class="signup-form" id="signup-form">
+          <h1>Join Juvo</h1>
+          <span>Email:</span>
+          <input type="email" placeholder="Email" id="email_field"/>
+          <span>Address:</span>
+          <input type="address" placeholder="Address" id="address_field"/>
+          <span>Password:</span>
+          <input type="password" placeholder="Password" id="password_field"/>
+
+          <button onclick="signup()">Sign Up</button>
+          <span class="pseudolink" onclick="switchLogin()">Already have an account?</span>
+
+        </div>
+      </div>
+
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-right">
+            <h1>How-To</h1>
+            <p>Step 1. Step 2. Step 3.</p>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div id="application" class="application">
+      <h3>Welcome User</h3>
+      <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
+      <button onclick="logout()">Logout</button>
+    </div>
+  
+    <script>
+      // Initialize Firebase
+      var firebaseConfig = {
+    apiKey: "AIzaSyC9CpENXN25PjdqqwYwlaLshKGst2o3gcg",
+    authDomain: "juvo-app.firebaseapp.com",
+    databaseURL: "https://juvo-app.firebaseio.com",
+    projectId: "juvo-app",
+    storageBucket: "juvo-app.appspot.com",
+    messagingSenderId: "293449225332",
+    appId: "1:293449225332:web:99d40aab2780e327b66d21",
+    measurementId: "G-H1KKBECR0V"
+  };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="app.js"></script>
   </body>
-</html>
+</html

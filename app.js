@@ -1,18 +1,84 @@
-(function () {
-  // Initialize Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyC9CpENXN25PjdqqwYwlaLshKGst2o3gcg",
-    authDomain: "juvo-app.firebaseapp.com",
-    databaseURL: "https://juvo-app.firebaseio.com",
-    projectId: "juvo-app",
-    storageBucket: "juvo-app.appspot.com",
-    messagingSenderId: "293449225332",
-    appId: "1:293449225332:web:99d40aab2780e327b66d21",
-    measurementId: "G-H1KKBECR0V",
-  };
-  firebase.initializeApp(firebaseConfig);
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    // User is signed in.
 
-  //Get Elements
-  const txtEmail = document.getElementById("txtEmail");
-  const txtPassword = document.getElementById("");
-})();
+    document.getElementById("application").style.display = "block";
+    document.getElementById("container").style.display = "none";
+
+    var user = firebase.auth().currentUser;
+
+    if (user != null) {
+      var email_id = user.email;
+      document.getElementById("user_para").innerHTML =
+        "Welcome User : " + email_id;
+    }
+  } else {
+    // No user is signed in.
+
+    document.getElementById("application").style.display = "none";
+    document.getElementById("container").style.display = "block";
+  }
+});
+
+function switchSignup() {
+  document.getElementById("login-form").style.display = "none";
+  document.getElementById("signup-form").style.display = "flex";
+}
+
+function switchLogin() {
+  document.getElementById("login-form").style.display = "flex";
+  document.getElementById("signup-form").style.display = "none";
+}
+
+function login() {
+  var userEmail = document.getElementById("email_field").value;
+  var userPass = document.getElementById("password_field").value;
+
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(userEmail, userPass)
+    .catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+
+      window.alert("Error : " + errorMessage);
+
+      // ...
+    });
+}
+
+function signup() {
+  var userEmail = document.getElementById("email_field").value;
+  var userPass = document.getElementById("password_field").value;
+
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(userEmail, userPass)
+    .catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+
+      window.alert("Error : " + errorMessage);
+
+      // ...
+    });
+}
+
+function logout() {
+  firebase.auth().signOut();
+}
+
+var database = firebase.database();
+
+function writeUserData(userId, name, email, address) {
+  firebase
+    .database()
+    .ref("users/" + userId)
+    .set({
+      username: name,
+      email: email,
+      address: address,
+    });
+}
