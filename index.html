@@ -11,31 +11,29 @@
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
   </head>
 
-  <body>
+  <body id="body">
     <div class="container" id="container">
       <div class="form-container log-in-container">
         <div class="login-form" id="login-form">
           <h1>Login to Juvo</h1>
           <span>Email:</span>
-          <input type="email" placeholder="Email" id="email_field"/>
+          <input type="email" placeholder="Email" id="email_login_field"/>
           <span>Password:</span>
-          <input type="password" placeholder="Password" id="password_field"/>
-
-          <button onclick="login()">Log In</button>
+          <input type="password" placeholder="Password" id="password_login_field"/>
+          <button onclick="login()" id="loginbutton">Log In</button>
           <span class="pseudolink" onclick="switchSignup()">Don't have an account?</span>
         </div>
+
         <div class="signup-form" id="signup-form">
           <h1>Join Juvo</h1>
           <span>Email:</span>
-          <input type="email" placeholder="Email" id="email_field"/>
+          <input type="email" placeholder="Email" id="email_signup_field"/>
           <span>Address:</span>
-          <input type="address" placeholder="Address" id="address_field"/>
+          <input type="address" placeholder="Address" id="address_signup_field"/>
           <span>Password:</span>
-          <input type="password" placeholder="Password" id="password_field"/>
-
+          <input type="password" placeholder="Password" id="password_signup_field"/>
           <button onclick="signup()">Sign Up</button>
           <span class="pseudolink" onclick="switchLogin()">Already have an account?</span>
-
         </div>
       </div>
 

@@ -31,8 +31,8 @@ function switchLogin() {
 }
 
 function login() {
-  var userEmail = document.getElementById("email_field").value;
-  var userPass = document.getElementById("password_field").value;
+  var userEmail = document.getElementById("email_login_field").value;
+  var userPass = document.getElementById("password_login_field").value;
 
   firebase
     .auth()
@@ -49,8 +49,8 @@ function login() {
 }
 
 function signup() {
-  var userEmail = document.getElementById("email_field").value;
-  var userPass = document.getElementById("password_field").value;
+  var userEmail = document.getElementById("email_signup_field").value;
+  var userPass = document.getElementById("password_signup_field").value;
 
   firebase
     .auth()
@@ -70,15 +70,14 @@ function logout() {
   firebase.auth().signOut();
 }
 
-var database = firebase.database();
+var body = document.getElementById("body");
 
-function writeUserData(userId, name, email, address) {
-  firebase
-    .database()
-    .ref("users/" + userId)
-    .set({
-      username: name,
-      email: email,
-      address: address,
-    });
-}
+body.addEventListener("keyup", function (event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("loginbutton").click();
+  }
+});
