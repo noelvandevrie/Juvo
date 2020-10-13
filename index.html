@@ -5,6 +5,7 @@
     <title>Juvo</title>
     <link rel="stylesheet" type="text/css" href="startup.css" />
     <link rel="stylesheet" type="text/css" href="app.css" />
+    <link rel="stylesheet" type="text/css" href="product.css" />
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
@@ -47,48 +48,46 @@
         </div>
       </div>
     </div>
+<!-- 
+      <div id="application" class="application">
+
+        <div id="results">
+          <span id="final_span" class="final"></span>
+          <span id="interim_span" class="interim"></span>
+        </div>
+      </div> -->
+        <!-- <button onclick="addProduct()">ADD</button>
+        <button onclick="removeProduct()">REMOVE</button>
+        <button onclick="searchProduct()">Search</button>
+        <button onclick="logout()">Logout</button> -->
 
       <div id="application" class="application">
-        <h1>Juvo </h1>
-        <div id="product">
-          <p id="productName">test</p>
-          <p id="productPrice">test</p>
-          <div id="productImage">
+        <div class="header">
+          <h1 class="appHeader">Juvo </h1>
+          <span id="final_span" class="final"></span>
+          <span id="interim_span" class="interim"></span>
+        </div>
+        <div class="logout">
+          <button id="logout_button" onclick="logout()">Logout</button>
+        </div>
+        <div id="product" class="product">
+          <h2 id="productName" class="productName"></h2>
+          <div id="productImage" class="productImage">
           </div>
+          <p id="productPrice" class="productPrice"></p>
+
+          <!-- <button id="add_button" onclick="startButton(event)">
+          <button id="remove_button" onclick="startButton(event)"></button> -->
         </div>
 
-        <p id="user_para">Welcome to Juvo. You're currently logged in.</p>
-        <input type="search" placeholder="Search" id="search_field"/>
-        <button onclick="searchProduct()">Search</button>
-
-        <button onclick="logout()">Logout</button>
+        <div class="button">
+          <button id="start_button" onclick="startButton(event)">
+          <img id="start_img" src="mic.gif" alt="Start"></button>
+        </div>
+        <div class="cart">
+          <button id="cart_button" onclick="goToCart()">Cart</button>
+        </div>
       </div>
-
-    <!-- <div id="application" class="application">
-      <div class="one">
-        <button onclick="logout()">Logout</button>
-        One</div>
-      <div class="two">Two</div>
-      <div class="three">Three</div>
-      <div class="four">Four</div>
-      <div class="five">Five</div>
-      <div class="six">Six</div>
-    </div> -->
-  
-    <script>
-      // Initialize Firebase
-      var firebaseConfig = {
-    apiKey: "AIzaSyC9CpENXN25PjdqqwYwlaLshKGst2o3gcg",
-    authDomain: "juvo-app.firebaseapp.com",
-    databaseURL: "https://juvo-app.firebaseio.com",
-    projectId: "juvo-app",
-    storageBucket: "juvo-app.appspot.com",
-    messagingSenderId: "293449225332",
-    appId: "1:293449225332:web:99d40aab2780e327b66d21",
-    measurementId: "G-H1KKBECR0V"
-  };
-      firebase.initializeApp(firebaseConfig);
-    </script>
     <script src="app.js"></script>
   </body>
 </html
