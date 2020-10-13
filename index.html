@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-database.js"></script>
   </head>
 
   <body id="body">
@@ -32,7 +33,7 @@
           <input type="address" placeholder="Address" id="address_signup_field"/>
           <span>Password:</span>
           <input type="password" placeholder="Password" id="password_signup_field"/>
-          <button onclick="signup()">Sign Up</button>
+          <button onclick="SignUp()">Sign Up</button>
           <span class="pseudolink" onclick="switchLogin()">Already have an account?</span>
         </div>
       </div>
@@ -47,11 +48,32 @@
       </div>
     </div>
 
-    <div id="application" class="application">
-      <h3>Welcome User</h3>
-      <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
-      <button onclick="logout()">Logout</button>
-    </div>
+      <div id="application" class="application">
+        <h1>Juvo </h1>
+        <div id="product">
+          <p id="productName">test</p>
+          <p id="productPrice">test</p>
+          <div id="productImage">
+          </div>
+        </div>
+
+        <p id="user_para">Welcome to Juvo. You're currently logged in.</p>
+        <input type="search" placeholder="Search" id="search_field"/>
+        <button onclick="searchProduct()">Search</button>
+
+        <button onclick="logout()">Logout</button>
+      </div>
+
+    <!-- <div id="application" class="application">
+      <div class="one">
+        <button onclick="logout()">Logout</button>
+        One</div>
+      <div class="two">Two</div>
+      <div class="three">Three</div>
+      <div class="four">Four</div>
+      <div class="five">Five</div>
+      <div class="six">Six</div>
+    </div> -->
   
     <script>
       // Initialize Firebase
