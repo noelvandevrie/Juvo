@@ -26,22 +26,40 @@ firebase.initializeApp(firebaseConfig);
   }
 });
 
+
+function retrieveUpdateQuantity() { 
+  var user = firebase.auth().currentUser.uid;
+  var ref = firebase.database().ref("/carts/" + user);
+  var productName = document.getElementById("productName").innerHTML;
+
+
+  ref.orderByChild("name").equalTo(productName).once("value",snapshot => {
+    if (snapshot.exists()){
+      return firebase.database().ref('/carts/' + user + '/' + productName).once('value').then(function(snapshot) {
+        var quantity = (snapshot.val() && snapshot.val().quantity);
+          console.log(quantity)
+      });
+    } else {
+    }
+  }); 
+}
+
 function addProduct() {
   var user = firebase.auth().currentUser.uid;
   var productName = document.getElementById("productName").innerHTML;
   var ref = firebase.database().ref("products");
-
   ref.orderByChild("name").equalTo(productName).once("value",snapshot => {
     if (snapshot.exists()){
+
       return firebase.database().ref('/products/' + productName).once('value').then(function(snapshot) {
         var price = (snapshot.val() && snapshot.val().price);
         var name = (snapshot.val() && snapshot.val().name);
         var picture = (snapshot.val() && snapshot.val().picture);
 
-        firebase.database().ref('carts/' + user + '/' + productName).set({
+        firebase.database().ref('carts/' + user + '/' + productName).update({
           name: name,
           picture: picture,
-          price : price
+          price : price,
         });
       });
     } else {
@@ -118,27 +136,6 @@ function SignUp() {
 function logout() {
   firebase.auth().signOut();
 }
-var voiceButton = document.getElementById("start_button");
-
-body.addEventListener("keyup", function (event) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 71) {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    // Trigger the button element with a click
-    document.getElementById("start_button").click();
-  }
-});
-
-var logoutButton = document.getElementById("logout_button");
-
-body.addEventListener("keyup", function (event) {
-  if (event.keyCode === 76) {
-    event.preventDefault();
-    document.getElementById("logout_button").click();
-  }
-});
-
 
 var langs = [['English',['en-US', 'United States']],['Nederlands',['nl-NL']]];
 var final_transcript = '';
@@ -225,9 +222,76 @@ function searchProduct(searchInput) {
     
         document.getElementById("productImage").replaceChild(image, document.getElementById("productImage").childNodes[0]);
         document.getElementById("productPrice").innerHTML = price;
+        toggleAddRemoveOn();
       });
     } else {
       console.log("Error searching for product");
     }
   }); 
 }
+
+function toggleAddRemoveOn() { 
+  document.getElementById("addProduct").style.display = "flex";
+  document.getElementById("removeProduct").style.display = "flex";
+}
+
+
+
+function retrieveCart() {
+  var ref = firebase.database().ref("carts");
+  var user = firebase.auth().currentUser.uid;
+
+  ref.once("value",snapshot => {
+    if (snapshot.exists()){
+      return firebase.database().ref('/carts/' + user).once('value').then(function(snapshot) {
+        var cartProducts = snapshot.val();
+
+        Object.keys(cartProducts).forEach(function(key) {
+
+          console.log(key, cartProducts[key]);
+        
+        });
+
+
+      });
+    } else {
+      console.log("Error retrieving cart information");
+    }
+  }); 
+}
+
+var voiceButton = document.getElementById("start_button");
+
+body.addEventListener("keyup", function (event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 71) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("start_button").click();
+  }
+});
+
+var logoutButton = document.getElementById("logout_button");
+
+body.addEventListener("keyup", function (event) {
+  if (event.keyCode === 76) {
+    event.preventDefault();
+    document.getElementById("logout_button").click();
+  }
+});
+
+var count = 0;
+
+body.addEventListener("keyup", function (event) {
+  if (event.keyCode === 37) {
+    event.preventDefault();
+    count -= 1;
+    console.log(count)
+  }
+  if (event.keyCode === 39) {
+    event.preventDefault();
+    count += 1;
+    console.log(count)
+  }
+});
