@@ -8,7 +8,6 @@ var firebaseConfig = {
   appId: "1:293449225332:web:99d40aab2780e327b66d21",
   measurementId: "G-H1KKBECR0V"
 };
-
 firebase.initializeApp(firebaseConfig);
 
   firebase.auth().onAuthStateChanged(function (user) {
@@ -26,13 +25,10 @@ firebase.initializeApp(firebaseConfig);
   }
 });
 
-
 function retrieveUpdateQuantity() { 
   var user = firebase.auth().currentUser.uid;
   var ref = firebase.database().ref("/carts/" + user);
   var productName = document.getElementById("productName").innerHTML;
-
-
   ref.orderByChild("name").equalTo(productName).once("value",snapshot => {
     if (snapshot.exists()){
       return firebase.database().ref('/carts/' + user + '/' + productName).once('value').then(function(snapshot) {
@@ -67,7 +63,6 @@ function addProduct() {
     }
   });
 }
-
 function removeProduct() {
   var productName = document.getElementById("productName").innerHTML;
   var user = firebase.auth().currentUser.uid;
@@ -87,7 +82,6 @@ function removeProduct() {
     }
   });
 }
-
 function switchSignup() {
   document.getElementById("login-form").style.display = "none";
   document.getElementById("signup-form").style.display = "flex";
@@ -168,7 +162,7 @@ if (!('webkitSpeechRecognition' in window)) {
     if (window.getSelection) {
       window.getSelection().removeAllRanges();
       var range = document.createRange();
-      range.selectNode(document.getElementById('final_span'));
+      range.selectNode(document.getElementById('productName'));
       window.getSelection().addRange(range);
     }
   };
@@ -235,8 +229,6 @@ function toggleAddRemoveOn() {
   document.getElementById("removeProduct").style.display = "flex";
 }
 
-
-
 function retrieveCart() {
   var ref = firebase.database().ref("carts");
   var user = firebase.auth().currentUser.uid;
@@ -247,11 +239,8 @@ function retrieveCart() {
         var cartProducts = snapshot.val();
 
         Object.keys(cartProducts).forEach(function(key) {
-
           console.log(key, cartProducts[key]);
-        
         });
-
 
       });
     } else {
@@ -293,5 +282,14 @@ body.addEventListener("keyup", function (event) {
     event.preventDefault();
     count += 1;
     console.log(count)
+  }
+});
+
+var addButon = document.getElementById("add_button");
+
+body.addEventListener("keyup", function (event) {
+  if (event.keyCode === 187) {
+    event.preventDefault();
+    document.getElementById("add_buton").click();
   }
 });
