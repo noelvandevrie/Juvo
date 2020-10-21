@@ -7,7 +7,7 @@
   margin: 5% 25% 5% 25%;
   grid-template-columns: 20% 50% 20%;
   grid-gap: 5px;
-  grid-auto-rows: 15% 10% 50% 15%;
+  grid-auto-rows: 20% 10% 50% 20%;
 }
 
 .productQuantity {
@@ -29,9 +29,15 @@
   margin-right: auto;
   display: block;
   max-height: 100%;
+  max-width: 100%;
 }
-.img {
-  text-align: center;
+.productimg {
+  width: 100%;
+  height: 60%;
+  max-width: none;
+  max-height: none;
+  display: center;
+  position: center;
 }
 
 .productPrice {
@@ -58,6 +64,7 @@
 }
 
 .add_button {
+  border-radius: 50%;
   background-color: green;
   border: 1px solid green;
 }
@@ -70,6 +77,7 @@
 }
 
 .remove_button {
+  border-radius: 50%;
   background-color: red;
   border: 1px solid red;
 }
@@ -80,4 +88,3 @@
   border: 1px solid darkred;
   cursor: pointer;
 }
-
