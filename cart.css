@@ -120,6 +120,11 @@
 }
 
 .search_button {
+  background-color: blue;
+  border: 1px solid blue;
+}
+
+.search_button_div {
   grid-column: 3;
   grid-row: 6;
   display: flex;

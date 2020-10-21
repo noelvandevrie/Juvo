@@ -2,7 +2,7 @@
   width: 90%;
   height: 90%;
   display: grid;
-  grid-template-columns: 25px 150px auto 150px 25px;
+  grid-template-columns: 250px 200px auto auto auto 200px 250px;
   grid-gap: 10px;
   grid-auto-rows: 50px auto 50px;
 }
@@ -20,14 +20,14 @@
 }
 
 .header_search {
-  grid-column: 3;
+  grid-column: 3/6;
   grid-row: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .logout_search_div {
-  grid-column: 4;
+  grid-column: 5;
   grid-row: 1;
   display: flex;
   justify-content: center;
@@ -35,14 +35,14 @@
 }
 
 .product {
-  grid-column: 3;
+  grid-column: 2/7;
   grid-row: 2;
   display: block;
   justify-content: center;
   align-items: center;
 }
 .start_div {
-  grid-column: 2;
+  grid-column: 3;
   grid-row: 3;
   display: flex;
   justify-content: center;
@@ -62,7 +62,7 @@
 }
 
 .cart_div {
-  grid-column: 4;
+  grid-column: 5;
   grid-row: 3;
   display: flex;
   justify-content: center;
@@ -80,7 +80,6 @@
   border: 1px solid lightblue;
   cursor: pointer;
 }
-
 
 .appHeader {
   text-align: center;

@@ -20,33 +20,40 @@
     <div class="container" id="container">
       <div class="form-container log-in-container">
         <div class="login-form" id="login-form">
-          <h1>Login to Juvo</h1>
+          <h1>Login op Juvo</h1>
           <span>Email:</span>
           <input type="email" placeholder="Email" id="email_login_field"/>
-          <span>Password:</span>
+          <span>Wachtwoord:</span>
           <input type="password" placeholder="Password" id="password_login_field"/>
           <button onclick="login()" id="loginbutton">Log In</button>
-          <span class="pseudolink" onclick="switchSignup()">Don't have an account?</span>
+          <span class="pseudolink" onclick="switchSignup()">Nog geen account?</span>
         </div>
 
         <div class="signup-form" id="signup-form">
-          <h1>Join Juvo</h1>
+          <h1>Maak een Juvo account</h1>
           <span>Email:</span>
           <input type="email" placeholder="Email" id="email_signup_field"/>
-          <span>Address:</span>
+          <span>Adres:</span>
           <input type="address" placeholder="Address" id="address_signup_field"/>
-          <span>Password:</span>
+          <span>Wachtwoord:</span>
           <input type="password" placeholder="Password" id="password_signup_field"/>
           <button onclick="SignUp()">Sign Up</button>
-          <span class="pseudolink" onclick="switchLogin()">Already have an account?</span>
+          <span class="pseudolink" onclick="switchLogin()">Heb je al een account?</span>
         </div>
       </div>
 
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-right">
-            <h1>How-To</h1>
-            <p>Step 1. Step 2. Step 3.</p>
+            <h1>Uitleg</h1>
+            <p> 
+              Druk op de microfoonknop en noem een product.<br></br>
+              
+              Gebruik de groene/rode knoppen om het aantal te verhogen of te verlagen.<br></br>
+              
+              Om uw winkelwagen te bekijken, druk op de microfoonknop en zeg "Winkelwagen".<br></br>
+              
+              U kunt de winkelwagen navigeren met de pijltjes.</p>
           </div>
         </div>
       </div>
@@ -58,7 +65,7 @@
         </div>
 
         <div class="logout_search_div">
-          <button id="logout_button" class="logout_button" onclick="logout()">Logout</button>
+          <button id="logout_button" class="logout_button" onclick="logout()">Log uit</button>
         </div>
 
         <div id="product" class="product">
@@ -83,7 +90,7 @@
         </div>
         
         <div class="cart_div">
-          <button id="cart_button" class="cart_button" onclick="goToCart()">Cart</button>
+          <button id="cart_button" class="cart_button" onclick="goToCart()">Winkelwagen</button>
         </div>
       </div>
 
@@ -95,11 +102,15 @@
         </div>
 
         <div class="logout_cart_div">
-          <button id="logout_button" class="logout_button" onclick="logout()">Logout</button>
+          <button id="logout_button" class="logout_button" onclick="logout()">Log uit</button>
         </div>
 
-        <div class="search_button">
-          <button id="search_button" class="search_button" onclick="goToSearch()">App</button>
+        <!-- <div class="start_button_cart">
+          <button id="start_button_cart" class="start_button_cart" onclick="startButton(event)"><img id="start_img" src="mic.gif" alt="Start"></button>
+        </div> -->
+
+        <div class="search_button_div">
+          <button id="search_button" class="search_button" onclick="goToSearch()">Zoeken</button>
         </div>
 
         <div id="cart" class="cart">   
@@ -107,5 +118,7 @@
         </div>
       </div>
     <script src="app.js"></script>
+    <script src="login.js"></script>
+    <script src="cart.js"></script>
   </body>
 </html
