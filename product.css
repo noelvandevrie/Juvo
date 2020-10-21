@@ -5,10 +5,15 @@
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   overflow: hidden;
   margin: 5% 25% 5% 25%;
-
   grid-template-columns: 20% 50% 20%;
-  grid-gap: 10px;
-  grid-auto-rows: 20% 50% 20%;
+  grid-gap: 5px;
+  grid-auto-rows: 15% 10% 50% 15%;
+}
+
+.productQuantity {
+  text-align: center;
+  grid-column: 2;
+  grid-row: 4;
 }
 
 .productName {
@@ -19,7 +24,7 @@
 
 .productImage {
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 3;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -31,12 +36,12 @@
 .productPrice {
   text-align: center;
   grid-column: 2;
-  grid-row: 3;
+  grid-row: 2;
 }
 .addProduct {
   text-align: center;
   grid-column: 1;
-  grid-row: 3;
+  grid-row: 4;
   display: none;
   justify-content: center;
   align-items: center;
@@ -45,8 +50,33 @@
 .removeProduct {
   text-align: center;
   grid-column: 3;
-  grid-row: 3;
+  grid-row: 4;
   display: none;
   justify-content: center;
   align-items: center;
 }
+
+.add_button {
+  background-color: green;
+  border: 1px solid green;
+}
+
+.add_button:hover {
+  background: darkgreen;
+  color: #fff;
+  border: 1px solid darkgreen;
+  cursor: pointer;
+}
+
+.remove_button {
+  background-color: red;
+  border: 1px solid red;
+}
+
+.remove_button:hover {
+  background: darkred;
+  color: #fff;
+  border: 1px solid darkred;
+  cursor: pointer;
+}
+

@@ -12,6 +12,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-database.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
   </head>
 
   <body id="body">
@@ -49,36 +51,23 @@
         </div>
       </div>
     </div>
-<!-- 
-      <div id="application" class="application">
 
-        <div id="results">
-          <span id="final_span" class="final"></span>
-          <span id="interim_span" class="interim"></span>
-        </div>
-      </div> -->
-        <!-- <button onclick="addProduct()">ADD</button>
-        <button onclick="removeProduct()">REMOVE</button>
-        <button onclick="searchProduct()">Search</button>
-        <button onclick="logout()">Logout</button> -->
-
-      <div id="application" class="application">
-        <div class="header">
+      <div id="app_search" class="app_search">
+        <div class="header_search">
           <h1 class="appHeader">Juvo </h1>
-          <span id="final_span" class="final"></span>
-          <span id="interim_span" class="interim"></span>
         </div>
 
-        <div class="logout">
-          <button id="logout_button" onclick="logout()">Logout</button>
+        <div class="logout_search_div">
+          <button id="logout_button" class="logout_button" onclick="logout()">Logout</button>
         </div>
 
         <div id="product" class="product">
           <h2 id="productName" class="productName"></h2>
+          <h3 id="final_span" class="final"></h3>
           <div id="productImage" class="productImage">
           </div>
           <p id="productPrice" class="productPrice"></p>
-          
+          <p id="productQuantity" class="productQuantity"></p>
           <div id="addProduct" class="addProduct">
             <button id="add_button" class="add_button" onclick="addProduct()">+</button>
           </div>
@@ -87,19 +76,36 @@
             <button id="remove_button" class="remove_button" onclick="removeProduct()">-</button>
           </div>
         </div>
-        
-        <!-- <div id="cart" class="cart"></div> -->
-        
-        <div class="start_button">
-          <button id="start_button" onclick="startButton(event)">
+              
+        <div class="start_div">
+          <button id="start_button" class="start_button" onclick="startButton(event)">
           <img id="start_img" src="mic.gif" alt="Start"></button>
         </div>
         
-        <div class="cart_button">
-          <button id="cart_button" onclick="goToCart()">Cart</button>
+        <div class="cart_div">
+          <button id="cart_button" class="cart_button" onclick="goToCart()">Cart</button>
         </div>
       </div>
 
+
+      
+      <div id="app_cart" class="app_cart">
+        <div class="header_cart">
+          <h1 class="appHeader">Juvo </h1>
+        </div>
+
+        <div class="logout_cart_div">
+          <button id="logout_button" class="logout_button" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="search_button">
+          <button id="search_button" class="search_button" onclick="goToSearch()">App</button>
+        </div>
+
+        <div id="cart" class="cart">   
+
+        </div>
+      </div>
     <script src="app.js"></script>
   </body>
 </html

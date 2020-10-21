@@ -15,36 +15,83 @@ firebase.initializeApp(firebaseConfig);
   if (user) {
     // User is signed in.
     document.getElementById("container").style.display = "none";
-    document.getElementById("application").style.display = "grid";
+    document.getElementById("app_search").style.display = "grid";
 
     var user = firebase.auth().currentUser.uid;
 
   } else {
     // No user is signed in.
-    document.getElementById("application").style.display = "none";
+    document.getElementById("app_search").style.display = "none";
     document.getElementById("container").style.display = "block";
+    document.getElementById("app_cart").style.display = "none";
   }
 });
 
 
-function retrieveUpdateQuantity() { 
-  var user = firebase.auth().currentUser.uid;
-  var ref = firebase.database().ref("/carts/" + user);
+function addProduct() { 
+  var user = firebase.auth().currentUser.uid; 
   var productName = document.getElementById("productName").innerHTML;
 
+  firebase.database().ref('carts').child(user).child(productName).once("value",snapshot => {
+    if (snapshot.exists()){
+      var qty = fixQuantity(snapshot)
+      initAdd(qty)
+    } else {
+      addInitialProduct()
+    }
+  });
+} 
+
+function removeProduct() { 
+  var user = firebase.auth().currentUser.uid; 
+  var productName = document.getElementById("productName").innerHTML;
+
+  firebase.database().ref('carts').child(user).child(productName).once("value",snapshot => {
+    if (snapshot.exists()){
+      var qty = fixQuantity(snapshot)
+      initRemove(qty)
+    } else {
+    }
+  });
+} 
+
+function fixQuantity(snapshot) {
+  var snap = snapshot.val();
+  var qty = snap.quantity;
+  if (qty === undefined) {
+    qty = 0;
+  }
+  return qty;
+}
+
+function initAdd(quantity) {
+  var user = firebase.auth().currentUser.uid;
+  var productName = document.getElementById("productName").innerHTML; 
+  var ref = firebase.database().ref("products");
+  var quantity = quantity; 
 
   ref.orderByChild("name").equalTo(productName).once("value",snapshot => {
     if (snapshot.exists()){
-      return firebase.database().ref('/carts/' + user + '/' + productName).once('value').then(function(snapshot) {
-        var quantity = (snapshot.val() && snapshot.val().quantity);
-          console.log(quantity)
+      
+      return firebase.database().ref('/products/' + productName).once('value').then(function(snapshot) {
+        var price = (snapshot.val() && snapshot.val().price);
+        var name = (snapshot.val() && snapshot.val().name);
+        var picture = (snapshot.val() && snapshot.val().picture);
+        var qty = (snapshot.val() && quantity+1);
+        firebase.database().ref('carts/' + user + '/' + productName).update({
+          name: name,
+          picture: picture,
+          price : price,
+          quantity: qty
+        });
+        document.getElementById("productQuantity").innerHTML = qty;
       });
     } else {
+      console.log("Error adding product to cart");
     }
-  }); 
+  });
 }
-
-function addProduct() {
+function addInitialProduct() {
   var user = firebase.auth().currentUser.uid;
   var productName = document.getElementById("productName").innerHTML;
   var ref = firebase.database().ref("products");
@@ -60,6 +107,7 @@ function addProduct() {
           name: name,
           picture: picture,
           price : price,
+          quantity: 1
         });
       });
     } else {
@@ -68,10 +116,11 @@ function addProduct() {
   });
 }
 
-function removeProduct() {
+function initRemove(quantity) {
   var productName = document.getElementById("productName").innerHTML;
   var user = firebase.auth().currentUser.uid;
   var ref = firebase.database().ref("products");
+  var quantity = quantity;
 
   ref.orderByChild("name").equalTo(productName).once("value",snapshot => {
     if (snapshot.exists()){
@@ -79,8 +128,19 @@ function removeProduct() {
         var price = (snapshot.val() && snapshot.val().price);
         var name = (snapshot.val() && snapshot.val().name);
         var picture = (snapshot.val() && snapshot.val().picture);
+        var qty = (snapshot.val() && quantity-1);
 
-        firebase.database().ref().child('carts/' + user + '/' + productName).remove();
+        if(qty === 0) {
+          firebase.database().ref().child('carts/' + user + '/' + productName).remove();
+        } else {
+          firebase.database().ref('carts/' + user + '/' + productName).update({
+            name: name,
+            picture: picture,
+            price : price,
+            quantity: qty
+          });
+        }
+        document.getElementById("productQuantity").innerHTML = qty;
       });
     } else {
       console.log("Error removing product from cart");
@@ -155,7 +215,6 @@ if (!('webkitSpeechRecognition' in window)) {
     start_img.src = 'mic-animate.gif';
   };
 
-
   recognition.onend = function() {
     recognizing = false;
     if (ignore_onend) {
@@ -184,7 +243,7 @@ if (!('webkitSpeechRecognition' in window)) {
     }
     final_transcript = final_transcript;
     final_span.innerHTML = final_transcript;
-    interim_span.innerHTML = interim_transcript;
+    final_span.innerHTML = interim_transcript;
 
     searchProduct(final_transcript)
   };
@@ -200,13 +259,22 @@ function startButton(event) {
   recognition.start();
   ignore_onend = false;
   final_span.innerHTML = '';
-  interim_span.innerHTML = '';
+  // interim_span.innerHTML = '';
   start_img.src = 'mic-slash.gif';
   start_timestamp = event.timeStamp;
 }
 
 function searchProduct(searchInput) {
   var ref = firebase.database().ref("products");
+  var user = firebase.auth().currentUser.uid;
+
+  firebase.database().ref('carts').child(user).child(searchInput).once("value",snapshot => {
+    if (snapshot.exists()){
+      var qty = fixQuantity(snapshot)
+      document.getElementById("productQuantity").innerHTML = qty;
+    }
+  });
+
 
   ref.orderByChild("name").equalTo(searchInput).once("value",snapshot => {
     if (snapshot.exists()){
@@ -223,6 +291,7 @@ function searchProduct(searchInput) {
         document.getElementById("productImage").replaceChild(image, document.getElementById("productImage").childNodes[0]);
         document.getElementById("productPrice").innerHTML = price;
         toggleAddRemoveOn();
+
       });
     } else {
       console.log("Error searching for product");
@@ -235,52 +304,54 @@ function toggleAddRemoveOn() {
   document.getElementById("removeProduct").style.display = "flex";
 }
 
-
-
 function retrieveCart() {
   var ref = firebase.database().ref("carts");
   var user = firebase.auth().currentUser.uid;
 
+
   ref.once("value",snapshot => {
-    if (snapshot.exists()){
-      return firebase.database().ref('/carts/' + user).once('value').then(function(snapshot) {
+    if (snapshot){
+      return firebase.database().ref('/carts/' + user).once('value',snapshot=> {
         var cartProducts = snapshot.val();
-
-        Object.keys(cartProducts).forEach(function(key) {
-
-          console.log(key, cartProducts[key]);
         
-        });
 
+        const array = Object.keys(cartProducts).map(i => cartProducts[i])
+        console.log(array)
 
+        renderElement(array)
+    
       });
     } else {
       console.log("Error retrieving cart information");
     }
   }); 
+
+  
+}
+
+function goToCart() {
+  document.getElementById("app_search").style.display = "none"; 
+  document.getElementById("app_cart").style.display = "grid";
+  retrieveCart()
+}
+
+function goToSearch() {
+  document.getElementById("app_search").style.display = "grid"; 
+  document.getElementById("app_cart").style.display = "none";
+  
 }
 
 var voiceButton = document.getElementById("start_button");
 
 body.addEventListener("keyup", function (event) {
   // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 71) {
+  if (event.keyCode === 186) {
     // Cancel the default action, if needed
     event.preventDefault();
     // Trigger the button element with a click
     document.getElementById("start_button").click();
   }
 });
-
-var logoutButton = document.getElementById("logout_button");
-
-body.addEventListener("keyup", function (event) {
-  if (event.keyCode === 76) {
-    event.preventDefault();
-    document.getElementById("logout_button").click();
-  }
-});
-
 var count = 0;
 
 body.addEventListener("keyup", function (event) {
@@ -295,3 +366,64 @@ body.addEventListener("keyup", function (event) {
     console.log(count)
   }
 });
+
+
+
+
+
+function renderElement(array) {
+
+  document.getElementById('cart').innerHTML = "";
+  // turn string response to JSON array
+  var responseArray = array;
+  // make sure there is a response
+  if (responseArray.length > 0) {
+
+      // get container
+      var container = document.getElementById("cart");
+
+      // iterate over each response
+      for (var i = 0; i < responseArray.length; i += 1) {
+          
+              // create the elems needed
+              var element = document.createElement("div");
+              element.className = "cartproduct";
+  
+              var name= document.createElement("h2");
+              name.className = "productname";
+              name.innerHTML = responseArray[i].name;
+
+              var quantity= document.createElement("p");
+              quantity.className = "productquantity";
+              quantity.innerHTML = "quantity: " + responseArray[i].quantity;
+
+              var price= document.createElement("p");
+              price.className = "productprice";
+              price.innerHTML = responseArray[i].price;
+
+              var image = document.createElement("img");
+              image.id = "productimage"
+              image.src = responseArray[i].picture;
+              image.className = "productimage";
+
+              var addbutton = document.createElement("button");
+              addbutton.className = "add_button";
+              // addbutton.onclick = addProduct();
+              addbutton.innerHTML = "+";
+
+              // document.getElementById("productimage").replaceChild(image, document.getElementById("productimage").childNodes[0]);
+
+
+              image.className = "productimage";
+              image.innerHTML = responseArray[i].picture;
+              // append them all to player wrapper
+              element.appendChild(name);
+              element.appendChild(quantity);
+              element.appendChild(price);
+              element.appendChild(image);
+              element.appendChild(addbutton);
+              // append player to container
+              container.appendChild(element);
+      }
+  } 
+} 
