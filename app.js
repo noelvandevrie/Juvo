@@ -333,6 +333,7 @@ function clearCart() {
   var user = firebase.auth().currentUser.uid;
   firebase.database().ref('carts/').child(user).remove();
   document.getElementById("productQuantity").innerHTML = '';
+  document.getElementById("cart").innerHTML = '';
 }
 
 function retrieveOrder() {
