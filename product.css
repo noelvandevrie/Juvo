@@ -67,6 +67,8 @@
   border-radius: 50%;
   background-color: green;
   border: 1px solid green;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .add_button:hover {
@@ -80,6 +82,8 @@
   border-radius: 50%;
   background-color: red;
   border: 1px solid red;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .remove_button:hover {

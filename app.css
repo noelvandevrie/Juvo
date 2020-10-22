@@ -7,27 +7,8 @@
   grid-auto-rows: 50px auto 50px;
 }
 
-.logout_button {
-  background-color: black;
-  border: 1px solid black;
-}
-
-.logout_button:hover {
-  background: darkgrey;
-  color: #fff;
-  border: 1px solid darkgrey;
-  cursor: pointer;
-}
-
 .header_search {
   grid-column: 3/6;
-  grid-row: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.logout_search_div {
-  grid-column: 5;
   grid-row: 1;
   display: flex;
   justify-content: center;
@@ -42,7 +23,7 @@
   align-items: center;
 }
 .start_div {
-  grid-column: 3;
+  grid-column: 3/6;
   grid-row: 3;
   display: flex;
   justify-content: center;
@@ -58,26 +39,6 @@
   background: #bbae00;
   color: #fff;
   border: 1px solid #bbae00;
-  cursor: pointer;
-}
-
-.cart_div {
-  grid-column: 5;
-  grid-row: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cart_button {
-  background-color: blue;
-  border: 1px solid blue;
-}
-
-.cart_button:hover {
-  background: lightblue;
-  color: #fff;
-  border: 1px solid lightblue;
   cursor: pointer;
 }
 

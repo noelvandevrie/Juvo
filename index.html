@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="app.css" />
     <link rel="stylesheet" type="text/css" href="cart.css" />
     <link rel="stylesheet" type="text/css" href="product.css" />
+    <link rel="stylesheet" type="text/css" href="order.css" />
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
@@ -61,11 +62,7 @@
 
       <div id="app_search" class="app_search">
         <div class="header_search">
-          <h1 class="appHeader">Juvo </h1>
-        </div>
-
-        <div class="logout_search_div">
-          <button id="logout_button" class="logout_button" onclick="logout()">Log uit</button>
+          <h1 class="appHeader">Juvo</h1>
         </div>
 
         <div id="product" class="product">
@@ -88,37 +85,36 @@
           <button id="start_button" class="start_button" onclick="startButton(event)">
           <img id="start_img" src="mic.gif" alt="Start"></button>
         </div>
-        
-        <div class="cart_div">
-          <button id="cart_button" class="cart_button" onclick="goToCart()">Winkelwagen</button>
-        </div>
       </div>
 
-
-      
       <div id="app_cart" class="app_cart">
         <div class="header_cart">
-          <h1 class="appHeader">Juvo </h1>
-        </div>
-
-        <div class="logout_cart_div">
-          <button id="logout_button" class="logout_button" onclick="logout()">Log uit</button>
-        </div>
-
-        <!-- <div class="start_button_cart">
-          <button id="start_button_cart" class="start_button_cart" onclick="startButton(event)"><img id="start_img" src="mic.gif" alt="Start"></button>
-        </div> -->
-
-        <div class="search_button_div">
-          <button id="search_button" class="search_button" onclick="goToSearch()">Zoeken</button>
+          <h1 class="appHeader">Winkelwagen</h1>
         </div>
 
         <div id="cart" class="cart">   
+        </div>
 
+        <div id="total_div" class="total_div">
+        </div>
+
+      </div>
+
+      <div id="app_order" class="app_order">
+        <div class="header_cart">
+          <h2 class="appHeader">Bedankt voor uw bestelling!</h2>
+        </div>
+        
+        <div id="order" class="order">   
+        </div>
+
+        <div id="total_div_order" class="total_div_order">
         </div>
       </div>
+
     <script src="app.js"></script>
-    <script src="login.js"></script>
-    <script src="cart.js"></script>
+    <script src="voice.js"></script>
+    <script src="auth.js"></script>
+    <script src="device.js"></script>
   </body>
 </html
